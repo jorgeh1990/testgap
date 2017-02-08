@@ -1,0 +1,66 @@
+﻿@model IEnumerable<TestGAP.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("FilterArticle", "Article", FormMethod.Post))
+    {
+    @Html.DropDownList("StoreId", new SelectList(ViewBag.Stores, "Id", "name"), new { onchange = @"form.submit();" })
+    /*<input type="submit" value="Send" class="btn btn-primary" />*/
+    }
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.total_in_shelf)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.total_in_vault)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td align="right">
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td align="right">
+            @Html.DisplayFor(modelItem => item.total_in_shelf)
+        </td>
+        <td align="right">
+            @Html.DisplayFor(modelItem => item.total_in_vault)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) 
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
